@@ -1,0 +1,83 @@
+﻿@model ATP2_Project.Models.DataViewModel.CategoryViewModel
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <form method="post">
+        <div class="form-horizontal">
+            <h4> Add category</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.category.id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.category.Catagory_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" id="name" name="name" placeholder="Category Name" required/>
+                    @Html.ValidationMessageFor(model => model.category.Catagory_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div>
+                @if (ViewBag.Message != null)
+                {
+                    <h2>@ViewBag.Message</h2>
+                }
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr>
+    <h4>All Catagories</h4>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Serial");
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.category.Catagory_Name)
+            </th>
+
+            <th></th>
+        </tr>
+        @{
+            int i = 1;
+        }
+        @foreach (var item in Model.categories)
+        {
+            <tr>
+                <td>
+                    @(i++)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Catagory_Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
+
+    </table>
+    <form action="/Category/List">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="See All Categories" class="btn btn-default" />
+        </div>
+    </form>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

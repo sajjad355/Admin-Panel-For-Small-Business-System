@@ -1,0 +1,69 @@
+﻿@model ATP2_Project.Models.DataViewModel.MailView
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <body>
+        <div>
+            @using (Html.BeginForm("Index", "Mail", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            <table>
+                <tr>
+                    <td>
+                        To:
+                    </td>
+                    <td>
+
+                        @Html.EditorFor(model => model.to, new { htmlAttributes = new { @class = "form-control", @Value = Session["mail"] }, @readonly = "readonly" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Subject:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.subject,new {@required="required"})
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Body:
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(model => model.body, new { rows = "15", cols = "25", @required = "required" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" align="right" >
+                        <label style="color:red">@ViewBag.Message</label>
+                    </td colspan="2">
+                </tr>
+                <tr>
+                    <td colspan="2" align="right">
+                        <input type="submit" value="send" />
+                    </td>
+
+                </tr>
+
+
+                <tr>
+                    <td colspan="2" align="right">
+                        @Html.ActionLink("Back", "Index", "PreOrder")
+                    </td>
+
+                </tr>
+
+
+            </table>
+
+            }
+        </div>
+    </body>
+</head>
+</html>
+

@@ -1,0 +1,75 @@
+﻿@model ATP2_Project.Models.DataViewModel.PieViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-vertical">
+        <h4>PieViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.purchase, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="date" name="dateFrom" placeholder="Date From" />
+                @Html.ValidationMessageFor(model => model.purchase, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.sales, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="date" name="dateTo" placeholder="Date From" />
+                @Html.ValidationMessageFor(model => model.sales, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input class="btn" type="submit" value="See Report" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div id="chartContainer"></div>
+    <script type="text/javascript">
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                title: {
+                    text: ""
+                },
+                animationEnabled: true,
+                legend: {
+                    verticalAlign: "center",
+                    horizontalAlign: "left",
+                    fontSize: 20,
+                    fontFamily: "Helvetica"
+                },
+                theme: "light2",
+                data: [
+                {
+                    type: "pie",
+                    indexLabelFontFamily: "Garamond",
+                    indexLabelFontSize: 20,
+                    indexLabel: "{label} {y} tk",
+                    startAngle: -20,
+                    showInLegend: true,
+                    toolTipContent: "{legendText} {y} tk",
+                    dataPoints: [
+                        { y: @Model.purchase, legendText: "Purchase", label: "Purchase" },
+                        { y: @Model.sales, legendText: "Sales", label: "Sales" }
+                    ]
+                }
+                ]
+            });
+            chart.render();
+        };
+    </script>
+}
+

@@ -1,0 +1,211 @@
+﻿@model ATP2_Project.Models.Sale
+
+@{
+    ViewBag.Title = "Sell";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Sell</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Sale</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.info_id, "Saler Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="info_id">
+                    @foreach (ATP2_Project.Models.Information item in (ATP2_Project.Models.Information[])ViewData["informations"])
+                    {
+                        string a = item.id.ToString();
+                        if (a.Equals(Session["Info_Id"]))
+                        {
+                            <option value="@item.id" selected>@item.Full_Name</option>
+                            continue;
+                        }
+
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.invoice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.invoice, new { htmlAttributes = new { @class = "form-control", @id = "invoice", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.invoice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.date, new { @Value = @DateTime.Now.ToShortDateString(), @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.product_id, "Product Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="product_id">
+                    @foreach (ATP2_Project.Models.Product item in (ATP2_Project.Models.Product[])ViewBag.product)
+                    {
+                        if (Model.product_id.Equals(item.id))
+                        {
+                            <option value="@item.id" selected>@item.name</option>
+                            continue;
+                        }
+
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                <input type="number" id="quantity" name="quantity" value="@Model.quantity" min="1" max="@Model.quantity" onchange="totalprice();" />
+                @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.total_price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @{
+                    double p;
+                    p = Model.new_unit_price * Model.quantity;
+                }
+
+
+                <input type="number" id="total_price" name="total_price" value=@p readonly />
+                @Html.ValidationMessageFor(model => model.total_price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <h2 id="result"></h2>
+        <div class="form-group">
+            @Html.LabelFor(model => model.unit_price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.unit_price, new { htmlAttributes = new { @class = "form-control", @Value = Model.new_unit_price, @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.unit_price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.category_id, "Category Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="category_id">
+                    @foreach (ATP2_Project.Models.Category item in (ATP2_Project.Models.Category[])ViewData["categories"])
+                    {
+                        if (Model.category_id.Equals(item.id))
+                        {
+                            <option value="@item.id" selected>@item.Catagory_Name</option>
+                            continue;
+                        }
+
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.pre_unit_price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.pre_unit_price, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.pre_unit_price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.remarks, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.remarks, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.remarks, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.new_unit_price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                <input type="number" id="new_unit_Price" name="new_unit_Price" value="@Model.new_unit_price" readonly />
+                @Html.ValidationMessageFor(model => model.new_unit_price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "List")
+    <h1 id="load"></h1>
+</div>
+@section MyScript{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/ProjectScripts/Purchase/PurchaseCreate.js"></script>
+    <script src="~/Scripts/ProjectScripts/Purchase/Checking.js"></script>
+
+    <script>
+
+
+        function totalprice() {
+            var p = 0;
+            var q = document.getElementById("quantity").value;
+            var r = document.getElementById("new_unit_Price").value;
+            p = parseFloat(q) * parseFloat(r);
+
+
+            document.getElementById("total_price").value = p;
+
+        }
+        $("#invoice").change(function () {
+            var invoice = $("#invoice").val();
+            var jsonRequestData = { invoice: invoice };
+
+            $.ajax({
+                url: "/Sell/CheckInvoiceNo",
+                type: "POST",
+                data: jsonRequestData,
+                success: function (data) {
+                    if (data.invo != "") {
+                        alert("Invoie Number Used Before");
+                        $("#submitBtn").prop("disabled", true);
+                        $("#invoice").focus();
+                    }
+                    else if (data.invo == "") {
+                        $("#submitBtn").prop("disabled", false);
+                    }
+                },
+                error: function () {
+                    alert("Ajax Requiest Error");
+                }
+            });
+        });
+
+
+
+    </script>
+}

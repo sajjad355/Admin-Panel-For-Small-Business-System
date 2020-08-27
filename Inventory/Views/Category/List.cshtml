@@ -1,0 +1,39 @@
+﻿@model ATP2_Project.Models.DataViewModel.CategoryViewModel
+
+@{
+                /**/
+
+                ViewBag.Title = "All Catagory List";
+                Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Category List</h2>
+
+<p>
+    @Html.ActionLink("Add Category", "Index")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.category.Catagory_Name)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.categories)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Catagory_Name)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>

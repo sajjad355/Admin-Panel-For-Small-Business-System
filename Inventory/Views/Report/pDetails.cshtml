@@ -1,0 +1,106 @@
+﻿@model ATP2_Project.Models.Purchase
+
+@{
+    ViewBag.Title = "pDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>pDetails</h2>
+
+<div>
+    <h4>Purchase</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.info_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.info_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.expire_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.expire_Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.product_Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product_Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pre_unit_price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pre_unit_price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.new_unit_price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.new_unit_price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total_price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total_price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.catagory_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.catagory_id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

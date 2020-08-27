@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ATP2_Project.Models.User>
+
+@{
+    ViewBag.Title = "RevokeUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>RevokeUser</h2>
+
+
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.permission)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.info_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.username)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.permission)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.info_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.username)
+            </td>
+            <td>
+                @Html.ActionLink("SelectUser", "SelectUser", new { id = item.id })
+
+            </td>
+        </tr>
+    }
+
+</table>
+<div>
+    @Html.ActionLink("Back", "Index", "ManageUser")
+</div>

@@ -1,0 +1,147 @@
+﻿@model ATP2_Project.Models.DataViewModel.UserViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        body {
+            padding: 0;
+        }
+        input{
+            padding:5px 0 5px 0;
+            border-radius: 5px;
+            text-align:center;
+            font-weight:bold;
+            width:150px;
+        }
+        .center {
+            margin: auto;
+            width: 50%;
+            height: 0px;
+            background-color: white;
+            padding: 20px;
+        }
+
+        .center1 {
+            margin: auto;
+            width: 50%;
+            height: 40px;
+            background-color: rgb(224,255,255);
+            padding: 20px;
+        }
+
+        .center2 {
+            margin: auto;
+            width: 50%;
+            height: 300px;
+            background-color: rgb(236,233,216);
+            padding: 20px;
+        }
+
+        .center3 {
+            margin: auto;
+            width: 50%;
+            height: 10px;
+            background-color: rgb(224,255,255);
+            padding: 20px;
+        }
+
+
+        div.absolute {
+            position: absolute;
+            top: 140px;
+            right: 420px;
+            width: 120px;
+            height: 40px;
+        }
+
+        div.absolute1 {
+            position: absolute;
+            top: 140px;
+            right: 580px;
+            width: 100px;
+            height: 40px;
+        }
+
+        div.absolute2 {
+            position: absolute;
+            top: 140px;
+            right: 800px;
+            width: 100px;
+            height: 40px;
+        }
+        div.absolute4 {
+            position: absolute;
+            top: 140px;
+            right: 720px;
+            width: 300px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="center"></div>
+            <div class="center1">
+            </div>
+
+            <div class="center2"></div>
+            <div class="absolute1" style="top:65px;right:800px;font-size:18px"><pre><b>Sign in with your organizational user name</b></pre></div>
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div class="absolute2" style="top:200px;font-size:20px;right:770px">
+                @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+            <div class="absolute2" style="top:200px;font-size:20px;right:670px">
+                @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter user name" } })
+            </div>
+
+            <div class="absolute2" style="top:205px;font-size:11px;right:510px;color:red">
+                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+            </div>
+
+
+
+            <div class="absolute2" style="top:250px;font-size:20px;right:770px">
+                @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+            <div class="absolute2" style="top:250px;font-size:20px;right:670px">
+                @Html.TextBoxFor(model => model.password, new { type = "password", placeholder = "Enter Password", htmlAttributes = new { @class = "form-control"} })
+            </div>
+            <div class="absolute2" style="top:255px;font-size:11px;right:510px;color:red">
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+            </div>
+
+
+            <div class="form-group">
+                <div class="absolute2" style="top:310px; right: 690px;font-size:20px;color:blue;height:90px;width:80px">
+                    <input type="submit" value="Login" class="btn" style="background-color: rgb(30,144,255);color:maroon;width:150px;height:47px;font-size:22px;cursor: pointer" />
+                </div>
+            </div>
+        </div>
+        <div class="absolute4" style="top:280px;font-size:14px;right:470px">
+            <label style="color:red">@ViewData["Message"] </label>
+        </div>
+    }
+
+    <div class="absolute2" style="top:370px; right: 620px;font-size:20px;color:blue">
+        @Html.ActionLink("Register", "Index", "Registration")
+    </div>
+    <div class="absolute2" style="top:400px; right: 605px;font-size:20px;color:blue">
+        @Html.ActionLink("Back", "Index", "Home")
+    </div>
+</body>
+</html>

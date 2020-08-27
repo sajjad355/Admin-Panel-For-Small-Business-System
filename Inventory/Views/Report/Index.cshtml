@@ -1,0 +1,211 @@
+﻿@model ATP2_Project.Models.DataViewModel.ReportViewController
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel-group">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="panel-title" style="background-color:teal; margin-bottom: 20px; color:white; padding: 7px; ">Report </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            @Html.Label("date", "Date Form *", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                @*@Html.TextBoxFor(c => c.InvoiceNo, null, new { @class = "form-control" })*@
+                                @Html.Editor("dateFrom", new { htmlAttributes = new { @class = "form-control", @id = "dateFrom", @type = "date", @required = "required" } })
+                                @Html.ValidationMessage("", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.Label("catagory_id", "Category *", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                <select id="catagory_id" name="catagory_id" onchange="catagoryChange(this.value);">
+                                    <option value="0">--Select--</option>
+                                    @foreach (var item in @Model.categories)
+                                    {
+                                        <option value="@item.id">@item.Catagory_Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.Label("reportFor", "Report For *", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                <select name="reportFor" id="reportFor">
+                                    <option value="purchase">Purchase</option>
+                                    <option value="sale">Sales</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            @Html.Label("date", "Date To *", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                @*@Html.TextBoxFor(c => c.InvoiceNo, null, new { @class = "form-control" })*@
+                                @Html.Editor("dateTo", new { htmlAttributes = new { @class = "form-control", @type = "date", @id = "dateTo", @required = "required" } })
+                                @Html.ValidationMessage("", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.Label("product_id", "Product ", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                <select id="Product" name="product_id" class="form-control" onchange="productChange(this.value);">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 col-md-offset-4">
+                    <input type="submit" value="Submit" id="submitBtn" onclick="checkAll() class=" btn"" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    if (Model.purchases.Count != 0)
+    {
+        <div class="panel-heading">
+            <div class="panel-title" style="background-color:teal; padding: 7px; margin-bottom: 20px; color:white"><b>Purchases</b></div>
+        </div>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Invoice")
+                </th>
+                <th>
+                    @Html.DisplayName("Date")
+                </th>
+                <th>
+                    @Html.DisplayName("Quantity")
+                </th>
+                <th>
+                    @Html.DisplayName("Total Price")
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.purchases)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.invoice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.total_price)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "pDetails", new { id = item.id })
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+
+    if (Model.sales.Count != 0)
+    {
+        <div class="panel-heading">
+            <div class="panel-title" style="background-color:teal; padding: 7px; margin-bottom: 20px; color:white"><b>Sales Details</b></div>
+        </div>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Invoice")
+                </th>
+                <th>
+                    @Html.DisplayName("Date")
+                </th>
+                <th>
+                    @Html.DisplayName("Quantity")
+                </th>
+                <th>
+                    @Html.DisplayName("Total Price")
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.sales)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.invoice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.total_price)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "sDetails", new { id = item.id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+
+    <div class="col-md-12">
+        @if (ViewBag.Message != "")
+        {
+            <center>
+                <h3>
+                    <b>@ViewBag.Message</b>
+                </h3>
+            </center>
+        }
+    </div>
+    @section MyScript{
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/ProjectScripts/Purchase/PurchaseCreate.js"></script>
+        <script src="~/Scripts/ProjectScripts/Purchase/Checking.js"></script>
+        <script>
+
+            function catagoryChange(value) {
+
+                var jsonRequestData = { value: value };
+
+                $.ajax({
+                    url: "/Purchase/CheckCategory",
+                    type: "POST",
+                    data: jsonRequestData,
+                    success: function (data) {
+                        $("#Product").empty();
+                        $("#Product").append('<option value="">--Select--</option>');
+                        $.each(data, function (key, value) {
+
+                            $("#Product").append('<option value="' + value.id + '">' + value.name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert("product load failed when select category.");
+                    }
+                });
+            }
+        </script>
+    }
+
+
+}

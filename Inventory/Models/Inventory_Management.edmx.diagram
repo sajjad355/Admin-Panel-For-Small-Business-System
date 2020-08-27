@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7c9c08f3641b4e44bc2b1ce4db93300e" Name="Diagram1">
+        <EntityTypeShape EntityType="Inventory_ManagementModel.Category" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Inventory_ManagementModel.Information" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Inventory_ManagementModel.Product" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Inventory_ManagementModel.Purchase" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Inventory_ManagementModel.Sale" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Inventory_ManagementModel.Stock" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Inventory_ManagementModel.User" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <AssociationConnector Association="Inventory_ManagementModel.FK_Products_Catagories" ManuallyRouted="false" />
+        <AssociationConnector Association="Inventory_ManagementModel.FK_Purchases_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="Inventory_ManagementModel.FK_Sales_Catagories" ManuallyRouted="false" />
+        <AssociationConnector Association="Inventory_ManagementModel.FK_Stocks_Catagories" ManuallyRouted="false" />
+        <AssociationConnector Association="Inventory_ManagementModel.FK_Purchases_Informations" ManuallyRouted="false" />
+        <AssociationConnector Association="Inventory_ManagementModel.FK_Sales_Informations" ManuallyRouted="false" />
+        <AssociationConnector Association="Inventory_ManagementModel.FK_Users_Informations" ManuallyRouted="false" />
+        <AssociationConnector Association="Inventory_ManagementModel.FK_Purchases_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="Inventory_ManagementModel.FK_Sales_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="Inventory_ManagementModel.FK_Stocks_Products" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,75 @@
+﻿@model ATP2_Project.Models.Information
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Dashboard</h2>
+
+<div>
+    <h4>WelCome to @Session["user"]</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Full_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Full_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Acc_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Acc_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Balance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Balance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Work_Position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Work_Position)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usertype)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usertype)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit Information", "Edit", new { id = Model.id }) 
+    
+</p>

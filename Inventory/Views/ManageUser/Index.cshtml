@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ATP2_Project.Models.Information>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Manage User</h2>
+<p>
+    @Html.ActionLink("Invoke User", "InvokeUser")<br />
+
+    @Html.ActionLink("Revoke User", "RevokeUser")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Full_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Acc_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Balance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Work_Position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usertype)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Full_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Acc_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Balance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Work_Position)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.usertype)
+        </td>
+        <td>
+            @Html.ActionLink("Add User", "AddUser", new { id=item.id }) 
+        </td>
+    </tr>
+}
+
+</table>

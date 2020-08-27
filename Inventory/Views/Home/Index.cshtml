@@ -1,0 +1,117 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        body {
+            padding: 0;
+        }
+
+        .center {
+            margin: auto;
+            width: 50%;
+            height: 0px;
+            background-color: white;
+            padding: 20px;
+        }
+
+        .center1 {
+            margin: auto;
+            width: 50%;
+            height: 40px;
+            background-color: rgb(224,255,255);
+            padding: 20px;
+        }
+
+        .center2 {
+            margin: auto;
+            width: 50%;
+            height: 150px;
+            background-color: rgb(236,233,216);
+            padding: 20px;
+           
+        }
+
+        .center3 {
+            margin:auto;
+            width: 50%;
+            height: 200px;
+            background-color: rgb(236,233,216);
+            padding: 20px;
+        }
+
+
+        div.absolute {
+            position: absolute;
+            top: 140px;
+            right: 420px;
+            width: 120px;
+            height: 40px;
+        }
+
+
+        div.absolute1 {
+            position: absolute;
+            top: 70px;
+            right: 380px;
+            width: 100px;
+            height: 40px;
+        }
+
+        div.absolute2 {
+            position: absolute;
+            top: 160px;
+            right: 240px;
+            width: 600px;
+            height: 40px;
+        }
+        div.absolute3 {
+            position: absolute;
+            top: 210px;
+            right: 380px;
+            width: 580px;
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    @using (Html.BeginForm("Index", "Login", FormMethod.Get))
+    {
+
+        <div class="center"></div>
+        <div class="center1">
+            <div class="absolute1"><input type="submit" value="Login" name="Login" style="font-family:Cooper Black;font-size:14.25pt;color:maroon;background-color: rgb(224,255,255); height:45px;width:120px;cursor: pointer;border:none"></div>
+            <div class="absolute2"><label style="font-family:Cooper Black;font-size:14.25pt;color:maroon; height:45px;width:120px;cursor: pointer;border:none">Inventory Management System</label></div>
+
+        </div>
+
+        <div class="center2">
+            <div class="absolute3">
+                <span>
+                    An inventory management system is the combination of technology (hardware and software) and processes
+                    and procedures that oversee the monitoring and maintenance of stocked products, whether those products
+                    are company assets, raw materials and supplies, or finished products ready to be sent to vendors or end
+                    consumers.
+                </span>
+
+            </div>
+        </div>
+        <div class="center3" style="top:160px; left:10px;">
+            <div style="margin-left:80px;">
+                <img src="~/Images/Inventory-Control.jpg" alt="" width="280px" height="170px">
+                <img src="~/Images/Inventory-management-system-objectives.png" alt="" width="280px" height="170px">
+            </div>
+        </div>
+
+
+    }
+</body>
+</html>

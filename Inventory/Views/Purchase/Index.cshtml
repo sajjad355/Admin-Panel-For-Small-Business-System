@@ -1,0 +1,326 @@
+﻿@model ATP2_Project.Models.DataViewModel.PurchaseViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel-group">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="panel-title" style="background-color:teal; padding: 7px; margin-bottom: 20px; color:white"><b>Purchase Header</b></div>
+            </div>
+            <div class="panel-body">
+
+                <div class="col">
+                    @*<div class="col-md-6">*@
+                    <div class="form-group row">
+                        @Html.Label("date", "Date *", new { @class = "control-label col-md-4" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.purchase.date, new { htmlAttributes = new { @class = "form-control", @type = "date", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.purchase.date, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.Label("invoice", "Invoice *", new { @class = "control-label col-md-4" })
+                        <div class="col-md-4">
+                            @*@Html.TextBoxFor(c => c.InvoiceNo, null, new { @class = "form-control" })*@
+                            @Html.EditorFor(model => model.purchase.invoice, new { htmlAttributes = new { @class = "form-control", @id = "invoice", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.purchase.invoice, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @*</div>*@
+                    <div class="form-group row">
+                        @Html.Label("itemDate", "Supplier *", new { @class = "control-label col-md-4" })
+                        <div class="col-md-4">
+                            <select name="info_id" id="info_id">
+                                <option value="0">--Select--</option>
+                                @foreach (var item in @Model.suppliers)
+                                {
+                                    <option value="@item.id">@item.Full_Name</option>
+                                }
+                            </select>
+                        </div>
+                        @Html.ActionLink("Add new supplier", "addsupplier")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-group">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="panel-title" style="background-color:teal; margin-bottom: 20px; color:white; padding: 7px; ">Purchase Details</div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            @Html.Label("catagory_id", "Category ID *", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                <select id="catagory_id" name="catagory_id" onchange="catagoryChange(this.value);">
+                                    <option value="0">--Select--</option>
+                                    @foreach (var item in @Model.categories)
+                                    {
+                                        <option value="@item.id">@item.Catagory_Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.Label("product_id", "Product ID *", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                <select id="Product" name="product_id" class="form-control" onchange="productChange(this.value);">
+                                    <option value="0">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.Label("aQuantity", "Available Quantity ", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                @Html.Editor("0", new { htmlAttributes = new { @class = "form-control", @id = "aQuantity", @readonly = "readonly" } })
+                                @Html.ValidationMessage("", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.Label("expire_Date", "Expired Date *", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.purchase.expire_Date, new { htmlAttributes = new { @class = "form-control", @type = "date", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.purchase.expire_Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            @Html.Label("quantity", "Quantity *", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.purchase.quantity, new { htmlAttributes = new { @class = "form-control", @id = "quantity", @required = "required" ,@min=0} })
+                                @Html.ValidationMessageFor(model => model.purchase.quantity, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.Label("new_unit_Price", "Unit Price (TK)", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.purchase.new_unit_price, new { htmlAttributes = new { @class = "form-control", @id = "new_unit_Price", @type = "number", @required = "required", @min = "0" }  })
+                                @Html.ValidationMessageFor(model => model.purchase.new_unit_price, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.Label("total_price", "Total Price (TK)", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.purchase.total_price, new { htmlAttributes = new { @class = "form-control", @id = "total_price", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.purchase.total_price, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.Label("pre_unit_Price", "Previous Unit Price (TK)", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                @*@Html.TextBox("PUPrice", null, new { @class = "form-control" })*@
+                                @Html.Editor("0", new { htmlAttributes = new { @class = "form-control", @id = "pre_unit_price", @readonly = "readonly" } })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.Label("remarks", "Remarks : ", new { @class = "control-label col-md-4" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.purchase.remarks, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.purchase.remarks, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 col-md-offset-4">
+                    <input type="submit" value="Submit" id="submitBtn" onclick="checkAll()" />
+                </div>
+                <div class="col-md-12">
+                    @if (ViewBag.Message != "")
+                    {
+                        <h3>
+                            <b>@ViewBag.Message</b>
+                        </h3>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+@section MyScript{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/ProjectScripts/Purchase/PurchaseCreate.js"></script>
+    <script src="~/Scripts/ProjectScripts/Purchase/Checking.js"></script>
+
+    <script>
+
+        $("#itemInvoiceNo").change(function () {
+
+            var invo = $("#itemInvoiceNo").val();
+
+            var jsonRequesData = { invo: invo };
+
+            $.ajax({
+                url: "/Purchase/CheckInvoiceNo",
+                type: "POST",
+                data: jsonRequesData,
+                success: function (data) {
+                    if (data.invo != "") {
+                        alert("Invoie Number Used Before");
+                        $("#submitButton").prop("disabled", true);
+                    }
+                    else if (data.invo == "") {
+                        $("#submitButton").prop("disabled", false);
+                    }
+                },
+                error: function () {
+                    alert("Ajax Requiest Error");
+                }
+            });
+        });
+
+        $("#quantity").change(function () {
+
+            var quantity = $("#quantity").val();
+
+            if (quantity < 1) {
+                alert("Quantity Must be greater then 0 !");
+                $("#quantity").val('0');
+                $("#submitBtn").prop("disabled", true);
+            }
+            else {
+                $("#submitBtn").prop("disabled", false);
+            }
+            
+        });
+        $("#new_unit_Price").change(function () {
+
+            var quantity = $("#new_unit_Price").val();
+
+            if (quantity < 1) {
+                alert("Unit Price Must be greater then 0 !");
+                $("#new_unit_Price").val('0');
+                $("#submitBtn").prop("disabled", true);
+            }
+            else {
+                $("#submitBtn").prop("disabled", false);
+            }
+
+        });
+        function catagoryChange(value) {
+
+            var jsonRequestData = { value: value };
+
+            $.ajax({
+                url: "/Purchase/CheckCategory",
+                type: "POST",
+                data: jsonRequestData,
+                success: function (data) {
+                    $("#Product").empty();
+                    $("#Product").append('<option value="">--Select--</option>');
+                    $.each(data, function (key, value) {
+
+                        $("#Product").append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                },
+                error: function () {
+                    alert("product load failed when select category.");
+                }
+            });
+        }
+
+        function productChange() {
+
+            var productId = $("#Product").val();
+            var jsonRequestData = { value: productId };
+
+            $.ajax({
+                url: "/Purchase/CheckQuantity",
+                type: "POST",
+                data: jsonRequestData,
+                success: function (data) {
+                    $.each(data, function (key, value) {
+                        $("#aQuantity").val(value.quantity);
+                        $("#total_price").val('0');
+                        $("#pre_unit_price").val(value.pre_unit_price);
+                    });
+                },
+                error: function () {
+                    alert("product load failed when select category.");
+                }
+            });
+        }
+
+        $("info_id").change(function () {
+            if (document.getElementById("info_id").val() != 0) {
+                $("#submitBtn").prop("disabled", true);
+            }
+            else {
+                $("#submitBtn").prop("disabled", false);
+            }
+        });
+        $("quantity").change(function () {
+            if (document.getElementById("quantity").val() != 0) {
+                $("#submitBtn").prop("disabled", true);
+            }
+            else {
+                $("#submitBtn").prop("disabled", false);
+            }
+        });
+
+        $("#quantity").change(function () {
+
+            var quantity = $("#quantity").val();
+            var unitPrice = $("#new_unit_Price").val();
+            $("#total_price").val(quantity * unitPrice);
+            //document.getElementById("total_price").value = 0;
+        });
+
+        $("#new_unit_Price").change(function () {
+
+            var quantity = $("#quantity").val();
+            var unitPrice = $("#new_unit_Price").val();
+            $("#total_price").val(quantity * unitPrice);
+            //document.getElementById("total_price").value = 0;
+        });
+
+        $("#invoice").change(function () {
+            var invoice = $("#invoice").val();
+            var jsonRequestData = { invoice: invoice };
+
+            $.ajax({
+                url: "/Purchase/CheckInvoiceNo",
+                type: "POST",
+                data: jsonRequestData,
+                success: function (data) {
+                    if (data.invo != "") {
+                        alert("Invoie Number Used Before");
+                        $("#submitBtn").prop("disabled", true);
+                        $("#invoice").focus();
+                    }
+                    else if (data.invo == "") {
+                        $("#submitBtn").prop("disabled", false);
+                    }
+                },
+                error: function () {
+                    alert("Ajax Requiest Error");
+                }
+            });
+        });
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+    </script>
+}
